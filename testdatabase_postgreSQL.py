@@ -12,24 +12,17 @@ def main():
 
 	# Get student detail
 	objectName = input("Table Name: ")
-	# studentFirstName =  raw_input("StudentFirstName: ")
-	# studentLastName = raw_input("StudentLastName: ")
 
 	
 	# Get record from CSV file
 	csvfile = tkinter.filedialog.askopenfilename(title='Select CSV file',filetypes = [(("CSV files",".csv"),("all files","*.*"))])
 
 	# Connect to DB
-	psycopg2_connection = psycopg2.connect(dbname=dbName ,user='postgres', password='123456',port='5432')
+	psycopg2_connection = psycopg2.connect(dbname=dbName ,user='postgres', password='123456',port='3000')
 	cursor = psycopg2_connection.cursor()
-
-	# # Insert Student Data
-	# cursor.execute("INSERT INTO Students (Student_id,First_name,Last_name)"
-	# 	"VALUES (%s,%s,%s);", (studentId,studentFirstName,studentLastName))
 
 	# Insert Table Student
 	if(objectName == "Student"):
-		# csvfile = tkinter.filedialog.askopenfilename(title='Select CSV file',filetypes = [(("CSV files",".csv"),("all files","*.*"))])
 		record = readCSV4(csvfile)
 		for term in record:
 			for subject in term:
@@ -133,7 +126,7 @@ def readCSV4(csvfile):
 			next(csvfile)
 			reader = csv.reader(csvfile)
 			record, term = [], []
-			for row in reader:			# add Subject to term
+			for row in reader:			# add object to term
 				term.append([row[0],row[1],row[2],row[3]])
 				record.append(term)
 				term = []
@@ -145,7 +138,7 @@ def readCSV3(csvfile):
 			next(csvfile)
 			reader = csv.reader(csvfile)
 			record, term = [], []
-			for row in reader:			# add Subject to term
+			for row in reader:			# add object to term
 				term.append([row[0],row[1],row[2]])
 				record.append(term)
 				term = []
@@ -157,8 +150,8 @@ def readCSV2(csvfile):
 			next(csvfile)
 			reader = csv.reader(csvfile)
 			record, term = [], []
-			for row in reader:			# add Subject to term
-				term.append([row[0],row[1],row[2]])
+			for row in reader:			# add object to term
+				term.append([row[0],row[1]])
 				record.append(term)
 				term = []
 		return record
